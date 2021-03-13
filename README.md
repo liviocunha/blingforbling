@@ -14,7 +14,7 @@ Application to keep the stock synchronized between 2 Bling accounts
 * Run the migrations.
 ```
 git clone https://github.com/liviocunha/blingforbling.git
-cd .
+cd blingforbling
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
