@@ -15,8 +15,52 @@ class Api(object):
         self.root_uri = 'https//bling.com.br/Api/V2'
         self.session = requests.Session()
 
-    def get_products(self):
-        pass
+    def _requests(self, method, uri, params=None):
+        # Article Bling site: https://ajuda.bling.com.br/hc/pt-br/articles/360046422714
+        url = f"{self.root_uri}{uri}/json/?apikey={self.api_key}"
+        print(url)
+        try:
+            resp = self.session.request(method, url, params=params)
+            resp.raise_for_status()
+            return resp.json()
+        except requests.exceptions.HTTPError as e:
+            raise ApiError(e.request, e.response)
+        except requests.exceptions.RequestException as e:
+            raise ApiError(e.request)
+
+    def _get_items(self, resource, element, params=None):
+        elements = []
+        page = 1
+
+        while True:
+            try:
+                uri = f"/{resource}/page={page}"
+                resp = self._requests('GET', uri, params=params)
+                items = resp['retorno'][resource]
+                for item in items:
+                    elements.append(item[element])
+                page += 1
+            except KeyError:
+                break
+        return elements
+
+    def get_products(self, type=None, situation=None):
+        filters = []
+        params = {}
+
+        if type:
+            one_filter = f"tipo[{type}]"
+            filters.append(one_filter)
+
+        if situation:
+            one_filter = f"situacao[{situation}]"
+            filters.append(one_filter)
+
+        if len(filters):
+            filters_value = ';'.join(filters)
+            params = {'filters': filters_value}
+
+        return self._get_items('produtos', 'produto', params)
 
     def get_product(self):
         pass
@@ -27,3 +71,8 @@ class Api(object):
     def update_stock(self):
         pass
 
+
+class ApiError(Exception):
+    def __init__(self, request, response=None):
+        self.request = request
+        self.response = response
