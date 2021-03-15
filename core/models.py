@@ -3,7 +3,7 @@ from django.db import models
 
 class Bling(models.Model):
     """
-    Different accounts of Bling ERP.
+    Accounts of Bling ERP.
     Fields:
         name (str): Name given to Bling Account
         api_key (str): API key provided by Bling
@@ -13,3 +13,28 @@ class Bling(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Product(models.Model):
+    """
+    Persistence of products in the database.
+    Fields:
+        bling (int): Account linked to the product
+        sku (str): Product SKU
+        quantity (int): Product stock quantity
+        last_update (date): Last stock update
+    """
+    bling = models.ForeignKey('Bling', on_delete=models.CASCADE)
+    sku = models.CharField(max_length=30, help_text='Entre com o código SKU do produto.',
+                           verbose_name='SKU DO PRODUTO')
+    quantity = models.IntegerField(help_text='Entre com a quantidade em estoque.',
+                                   verbose_name='ESTOQUE DO PRODUTO')
+    last_update = models.DateTimeField(blank=True, help_text='Última atualização de estoque.',
+                                       verbose_name='ÚLTIMA ATUALIZAÇÃO')
+
+    def __str__(self):
+        return self.sku
+
+    class Meta:
+        ordering = ['sku']
+
