@@ -38,3 +38,30 @@ class Product(models.Model):
     class Meta:
         ordering = ['sku']
 
+
+class Movement(models.Model):
+    """
+    Entry and exit movements in product stock.
+    Fields:
+        quantity (int): Movement quantity
+        time (date): Last stock update
+        product (int): FK id of product
+        after_stock (int): Quantity after movement
+        before_stock (int): Quantity before movement
+        bling (int): FK id of account Bling
+        updated (boolean): It has been updated?
+    """
+    quantity = models.IntegerField(help_text='Entre com a quantidade da movimentação.',
+                                   verbose_name='QUANTIDADE MOVIMENTAÇÃO')
+    time = models.DateTimeField(blank=True, help_text='Horário da movimentação.',
+                                verbose_name='HORÁRIO DA MOVIMENTAÇÃO')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,blank=False, null=False)
+    after_stock = models.IntegerField(help_text='Quantidade do produto depois da movimentação.',
+                                      verbose_name='QUANTIDADE DEPOIS')
+    before_stock = models.IntegerField(help_text='Quantidade do produto antes da movimentação.',
+                                       verbose_name='QUANTIDADE ANTES')
+    bling = models.ForeignKey(Bling, on_delete=models.CASCADE, blank=False, null=False)
+    updated = models.BooleanField(verbose_name='Atualizado nas contas Bling.', default=False)
+
+    class Meta:
+        ordering = ['Product']
