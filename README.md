@@ -5,6 +5,7 @@ Application to keep the stock synchronized between 2 Bling accounts
 * Python 3.8.5
 * Django 3.0.6
 * Requests 2.23.0
+* django-braces 1.14.0
 
 ## How to run project?
 * Clone this repository.
