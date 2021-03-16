@@ -12,15 +12,15 @@ class Api(object):
 
         self.api_key = api_key
         # Article Bling site: https://ajuda.bling.com.br/hc/pt-br/articles/360046937853
-        self.root_uri = 'https//bling.com.br/Api/V2'
+        self.root_uri = 'https://bling.com.br/Api/v2'
         self.session = requests.Session()
 
-    def _requests(self, method, uri, params=None):
+    def _requests(self, method, uri, params=None, data=None):
         # Article Bling site: https://ajuda.bling.com.br/hc/pt-br/articles/360046422714
         url = f"{self.root_uri}{uri}/json/?apikey={self.api_key}"
         print(url)
         try:
-            resp = self.session.request(method, url, params=params)
+            resp = self.session.request(method, url, data=data, params=params)
             resp.raise_for_status()
             return resp.json()
         except requests.exceptions.HTTPError as e:
@@ -35,6 +35,7 @@ class Api(object):
         while True:
             try:
                 uri = f"/{resource}/page={page}"
+                print(uri)
                 resp = self._requests('GET', uri, params=params)
                 items = resp['retorno'][resource]
                 for item in items:
@@ -62,8 +63,11 @@ class Api(object):
 
         return self._get_items('produtos', 'produto', params)
 
-    def get_product(self):
-        pass
+    def get_product(self, sku):
+        uri = f"/produto/{sku}"
+        params = {'estoque': 'S'}
+        resp = self._requests('GET', uri, params=params)
+        return resp['retorno']['produtos'][0]['produto']
 
     def update_product(self):
         pass
