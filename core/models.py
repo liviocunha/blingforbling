@@ -64,4 +64,4 @@ class Movement(models.Model):
     updated = models.BooleanField(verbose_name='Atualizado nas contas Bling.', default=False)
 
     class Meta:
-        ordering = ['Product']
+        ordering = ['product']
