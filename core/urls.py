@@ -1,8 +1,7 @@
-from django.urls import path, include
-# from .views import home
+from django.urls import path
+from .views import HookInventoryChangeView
 
 urlpatterns = [
-    # path('', home),
-
+    path('hookinventory/', HookInventoryChangeView.as_view(), name='Hook Inventory Change')
 ]
 

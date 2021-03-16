@@ -25,7 +25,7 @@ SECRET_KEY = 'fkht(a80z1pk^^^-#9$l2e=s!mmo(4$qhvy3-jjxx((h-i9*+*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
