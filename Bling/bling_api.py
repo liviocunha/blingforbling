@@ -18,7 +18,6 @@ class Api(object):
     def _requests(self, method, uri, params=None, data=None):
         # Article Bling site: https://ajuda.bling.com.br/hc/pt-br/articles/360046422714
         url = f"{self.root_uri}{uri}/json/?apikey={self.api_key}"
-        print(url)
         try:
             resp = self.session.request(method, url, data=data, params=params)
             resp.raise_for_status()
@@ -35,7 +34,6 @@ class Api(object):
         while True:
             try:
                 uri = f"/{resource}/page={page}"
-                print(uri)
                 resp = self._requests('GET', uri, params=params)
                 items = resp['retorno'][resource]
                 for item in items:
