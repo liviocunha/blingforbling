@@ -93,13 +93,15 @@ class HookDataProduct(object):
         data_json (dict): Dictionary with the product data structure
         sku (string): Code of product
         current_inventory (int): Current inventory of product
-        balance (int): Balance of product
-        reservation (int): Reservation of product
+        balance (int): On-hand balance of product
+        reservation (int): Product sold reservation
         """
 
         self.data_bytes = request_body
         self.data_json = self._json_loads()
         self.sku = self._get_sku_code()
+        self.current_inventory = self._get_current_inventory()
+        self.balance = self._get_balance()
 
     @staticmethod
     def _to_string(data_bytes):
@@ -112,4 +114,10 @@ class HookDataProduct(object):
 
     def _get_sku_code(self):
         return self.data_json['retorno']['estoques'][0]['estoque']['codigo']
+
+    def _get_current_inventory(self):
+        return int(self.data_json['retorno']['estoques'][0]['estoque']['estoqueAtual'])
+
+    def _get_balance(self):
+        return int(self.data_json['retorno']['estoques'][0]['estoque']['depositos'][0]['deposito']['saldo'].split('.')[0])
 
