@@ -5,17 +5,14 @@ from django.shortcuts import render
 from braces.views import CsrfExemptMixin
 from core.models import Bling, Product
 from django.utils import timezone
-from Bling import Api, ApiError
+from Bling import Api, ApiError, HookDataProduct
 from django.core.exceptions import ObjectDoesNotExist
 
 
 class HookInventoryChangeView(CsrfExemptMixin, View):
     def post(self, request, *args, **kwargs):
-        data = json.loads(request.body)
-        sku = data['retorno']['estoques'][0]['estoque']['codigo']
-        estoque_atual = data['retorno']['estoques'][0]['estoque']['estoqueAtual']
-        print(f"Produto: {sku} | Estoque Atual: {estoque_atual}")
-
+        data = HookDataProduct(request.body)
+        print(data.data)
         return HttpResponse('\n OK! Status Code 200 \n')
 
 
