@@ -102,6 +102,7 @@ class HookDataProduct(object):
         self.sku = self._get_sku_code()
         self.current_inventory = self._get_current_inventory()
         self.balance = self._get_balance()
+        self.reservation = self._get_reservation()
 
     @staticmethod
     def _to_string(data_bytes):
@@ -120,4 +121,7 @@ class HookDataProduct(object):
 
     def _get_balance(self):
         return int(self.data_json['retorno']['estoques'][0]['estoque']['depositos'][0]['deposito']['saldo'].split('.')[0])
+
+    def _get_reservation(self):
+        return self.balance - self.current_inventory
 
