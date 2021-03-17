@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 class Api(object):
@@ -89,7 +90,7 @@ class HookDataProduct(object):
         """
         :param:
         data_bytes (bytes): POST callback change inventory
-        data (dict): Dictionary with the product data structure
+        data_json (dict): Dictionary with the product data structure
         sku (string): Code of product
         current_inventory (int): Current inventory of product
         balance (int): Balance of product
@@ -97,3 +98,18 @@ class HookDataProduct(object):
         """
 
         self.data_bytes = request_body
+        self.data_json = self._json_loads()
+        self.sku = self._get_sku_code()
+
+    @staticmethod
+    def _to_string(data_bytes):
+        data_str = data_bytes.decode("UTF-8")
+        return data_str[5:]
+
+    def _json_loads(self):
+        data_str = self._to_string(self.data_bytes)
+        return json.loads(data_str)
+
+    def _get_sku_code(self):
+        return self.data_json['retorno']['estoques'][0]['estoque']['codigo']
+

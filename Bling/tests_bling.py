@@ -14,7 +14,7 @@ class TestHookChangeInventory(unittest.TestCase):
         self.assertIsInstance(self.data.data_bytes, bytes)
 
     def test_data_is_dict(self):
-        self.assertIsInstance(self.data.data, dict)
+        self.assertIsInstance(self.data.data_json, dict)
 
     def test_get_sku_code(self):
         self.assertEqual(self.data.sku, '10001PT37')

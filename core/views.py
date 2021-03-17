@@ -12,7 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 class HookInventoryChangeView(CsrfExemptMixin, View):
     def post(self, request, *args, **kwargs):
         data = HookDataProduct(request.body)
-        print(data.data)
+        print(data.data_json)
         return HttpResponse('\n OK! Status Code 200 \n')
 
 
