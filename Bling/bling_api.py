@@ -78,3 +78,22 @@ class ApiError(Exception):
     def __init__(self, request, response=None):
         self.request = request
         self.response = response
+
+
+class HookDataProduct(object):
+    """
+    If the "Send batch data" parameter is disabled in Bling the callback sends only 1 product at a time
+    and this Class receives this post and deals with the necessary fields to use in updating the stock.
+    """
+    def __init__(self, request_body):
+        """
+        :param:
+        data_bytes (bytes): POST callback change inventory
+        data (dict): Dictionary with the product data structure
+        sku (string): Code of product
+        current_inventory (int): Current inventory of product
+        balance (int): Balance of product
+        reservation (int): Reservation of product
+        """
+
+        self.data_bytes = request_body
