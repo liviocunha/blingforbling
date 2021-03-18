@@ -29,5 +29,41 @@ class TestHookChangeInventory(unittest.TestCase):
         self.assertEqual(self.data.reservation, 2)
 
 
+class TestSyncStock(unittest.TestCase):
+    def setUp(self):
+        obj1 = {'quantity': 3}
+        product_update = Obj1(obj1)
+        obj2 = {'current_inventory': 2}
+        data = Obj2(obj2)
+        self.sync_stock = SyncStock(product_update, data)
+
+    def test_diff_quantity(self):
+        self.assertEqual(self.sync_stock.diff, -1)
+
+    def test_after_inventory_balance(self):
+        self.assertEqual(self.sync_stock.after_stock, 2)
+
+    def test_before_inventory_balance(self):
+        self.assertEqual(self.sync_stock.before_stock, 3)
+
+
+class Obj1(object):
+    def __init__(self, obj_dict):
+        self.obj_dict = obj_dict
+        self.quantity = self._get_quantity()
+
+    def _get_quantity(self):
+        return self.obj_dict['quantity']
+
+
+class Obj2(object):
+    def __init__(self, obj_dict):
+        self.obj_dict = obj_dict
+        self.current_inventory = self._get_current_inventory()
+
+    def _get_current_inventory(self):
+        return self.obj_dict['current_inventory']
+
+
 if __name__ == '__main__':
     unittest.main()
