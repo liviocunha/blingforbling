@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h2>Escolha a Opção:</h2>
+    <h2 align="center">Escolha a opção:</h2>
     <div>
         <ul class="actions vertical">
-            <li><a href="/insertProducts" class="button fit">INSERIR PRODUTOS</a></li>
-            <!--<li><a href="#" class="button alt fit">Default</a></li>-->
+            <li><a href="/insertProducts" class="button fit">INSERIR NOVOS PRODUTOS</a></li>
+            <li><a href="/admin/core/product/" class="button special fit">LISTAR PRODUTOS</a></li>
+            <li><a href="/admin/core/movement/" class="button special fit">LISTAR MOVIMENTAÇÕES</a></li>
+            <li><a href="/admin/core/bling/" class="button special fit">LISTAR CONTAS BLING</a></li>
+            <li><a href="/admin/logout/" class="button alt fit">SAIR</a></li>
         </ul>
     </div>
 {% endblock content %}
