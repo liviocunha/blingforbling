@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Bling(models.Model):
+class AccountBling(models.Model):
     """
     Accounts of Bling ERP.
     Fields:
@@ -24,7 +24,7 @@ class Product(models.Model):
         quantity (int): Product stock quantity
         last_update (date): Last stock update
     """
-    bling = models.ForeignKey('Bling', on_delete=models.CASCADE)
+    bling = models.ForeignKey('AccountBling', on_delete=models.CASCADE)
     sku = models.CharField(max_length=30, help_text='Entre com o código SKU do produto.',
                            verbose_name='SKU DO PRODUTO')
     quantity = models.IntegerField(help_text='Entre com a quantidade em estoque.',
@@ -60,7 +60,7 @@ class Movement(models.Model):
                                       verbose_name='QUANTIDADE DEPOIS')
     before_stock = models.IntegerField(help_text='Quantidade do produto antes da movimentação.',
                                        verbose_name='QUANTIDADE ANTES')
-    bling = models.ForeignKey(Bling, on_delete=models.CASCADE, blank=False, null=False)
+    bling = models.ForeignKey(AccountBling, on_delete=models.CASCADE, blank=False, null=False)
     updated = models.BooleanField(verbose_name='Atualizado nas contas Bling.', default=False)
 
     class Meta:

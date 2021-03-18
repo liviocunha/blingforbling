@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import View
 from django.shortcuts import render
 from braces.views import CsrfExemptMixin
-from core.models import Bling, Product
+from core.models import AccountBling, Product
 from django.utils import timezone
 from Bling import Api, ApiError, HookDataProduct
 from django.core.exceptions import ObjectDoesNotExist
@@ -23,7 +23,7 @@ def home(request):
 
 
 def insert_products(request):
-    accounts_blings = Bling.objects.all()
+    accounts_blings = AccountBling.objects.all()
     logging_future = 0
 
     try:

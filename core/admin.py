@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Bling, Product, Movement
+from core.models import AccountBling, Product, Movement
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -12,11 +12,11 @@ class MovementAdmin(admin.ModelAdmin):
     search_fields = ('product__sku', 'bling__name', 'update')
 
 
-class BlingAdmin(admin.ModelAdmin):
+class AccountBlingAdmin(admin.ModelAdmin):
     list_display = ('name', 'api_key')
     search_fields = ('name', )
 
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Movement, MovementAdmin)
-admin.site.register(Bling, BlingAdmin)
+admin.site.register(AccountBling, AccountBlingAdmin)
