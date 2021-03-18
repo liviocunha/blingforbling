@@ -7,6 +7,7 @@ from core.models import Bling, Product
 from django.utils import timezone
 from Bling import Api, ApiError, HookDataProduct
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 
 class HookInventoryChangeView(CsrfExemptMixin, View):
@@ -16,6 +17,7 @@ class HookInventoryChangeView(CsrfExemptMixin, View):
         return HttpResponse('\n OK! Status Code 200 \n')
 
 
+@login_required
 def home(request):
     return render(request, 'index.html')
 
