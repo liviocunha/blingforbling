@@ -133,4 +133,9 @@ class HookDataProduct(object):
 
 
 class SyncStock(object):
-    pass
+    def __init__(self, obj1, obj2):
+        self.quantity_product_update = int(obj1.quantity)
+        self.current_inventory_data = int(obj2.current_inventory)
+        self.diff = self.current_inventory_data - self.quantity_product_update
+        self.after_stock = self.quantity_product_update + self.diff
+        self.before_stock = self.quantity_product_update
