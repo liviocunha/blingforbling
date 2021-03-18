@@ -68,11 +68,17 @@ class Api(object):
         resp = self._requests('GET', uri, params=params)
         return resp['retorno']['produtos'][0]['produto']
 
-    def update_product(self):
-        pass
+    def update_product(self, code, xml):
+        uri = f"/produto/{code}"
+        payload = {
+            'xml': xml
+        }
+        resp = self._requests('POST', uri, data=payload)
+        return resp
 
-    def update_stock(self):
-        pass
+    def update_stock(self, code, qty):
+        xml = f"<produto><codigo>{code}</codigo><estoque>{qty}</estoque></produto>"
+        return self.update_product(code, xml)
 
 
 class ApiError(Exception):
@@ -125,3 +131,6 @@ class HookDataProduct(object):
     def _get_reservation(self):
         return self.balance - self.current_inventory
 
+
+class SyncStock(object):
+    pass
