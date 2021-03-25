@@ -1,5 +1,11 @@
 # blingforbling
-Application to keep the stock synchronized between 2 Bling accounts
+Application to keep the stock synchronized between 2 Bling accounts.
+
+### Simple Diagram
+![simple diagram blingforbling](imgs/diagram-simple-bling.png)
+
+### BD Diagram
+![simple diagram blingforbling](imgs/bd-bling-for-bling.png)
 
 ### Disclaimer:
 Mandatory requirement that the SKU codes are the same in both accounts. 
